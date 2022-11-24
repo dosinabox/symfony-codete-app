@@ -38,6 +38,7 @@ RUN apk add --no-cache \
 
 RUN set -eux; \
     install-php-extensions \
+    	pgsql \
     	intl \
     	zip \
     	apcu \
