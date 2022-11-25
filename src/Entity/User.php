@@ -20,6 +20,11 @@ class User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 
+    public function __construct(?string $firstName = null, ?string $lastName = null)
+    {
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
