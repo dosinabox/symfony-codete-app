@@ -11,11 +11,11 @@ class CreateUserCommandHandler
     {
     }
 
-    public function handle(string $firstName, string $lastName): User
+    public function handle(CreateUserCommand $command): User
     {
         $user = new User();
-        $user->setFirstName($firstName);
-        $user->setLastName($lastName);
+        $user->setFirstName($command->firstName);
+        $user->setLastName($command->lastName);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
