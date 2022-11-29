@@ -5,12 +5,17 @@ declare(strict_types=1);
 use App\Controller\GetUserController;
 use App\Controller\CreateUserController;
 use App\Controller\ListUsersController;
+use App\Controller\UpdateUserController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {
     $routes->add('getUser', '/users/{id}')
         ->controller(GetUserController::class)
         ->methods(['GET']);
+
+    $routes->add('updateUser', '/users/{id}')
+        ->controller(UpdateUserController::class)
+        ->methods(['POST']);
 
     $routes->add('listUsers', '/users')
         ->controller(ListUsersController::class)
