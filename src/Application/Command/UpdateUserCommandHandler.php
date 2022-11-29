@@ -11,14 +11,14 @@ class UpdateUserCommandHandler
     {
     }
 
-    public function handle(UpdateUserCommand $command, User $user): User
+    public function handle(UpdateUserCommand $command): User
     {
-        $user->setFirstName($command->firstName);
-        $user->setLastName($command->lastName);
+        $command->user->setFirstName($command->firstName);
+        $command->user->setLastName($command->lastName);
 
-        $this->entityManager->persist($user);
+        $this->entityManager->persist($command->user);
         $this->entityManager->flush();
 
-        return $user;
+        return $command->user;
     }
 }

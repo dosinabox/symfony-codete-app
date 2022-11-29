@@ -29,8 +29,8 @@ class UpdateUserController extends AbstractController
             $user = $this->updateHandler->handle(
                 new UpdateUserCommand(
                     $request->request->get('firstName'),
-                    $request->request->get('lastName')),
-                $user);
+                    $request->request->get('lastName'),
+                    $user));
         } catch (\AssertionError $error) {
             throw new BadRequestHttpException($error->getMessage());
         }
