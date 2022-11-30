@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListUsersController extends AbstractController
 {
-    public function __construct(readonly private ListUsersQueryHandler $handler)
+    public function __construct(private readonly ListUsersQueryHandler $handler)
     {
     }
 
