@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CreateUserController extends AbstractController
 {
-    public function __construct(readonly private CreateUserCommandHandler $handler)
+    public function __construct(private readonly CreateUserCommandHandler $handler)
     {
     }
 
