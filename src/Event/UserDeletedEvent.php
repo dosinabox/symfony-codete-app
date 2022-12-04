@@ -5,9 +5,9 @@ namespace App\Event;
 use App\Entity\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class UserCreatedEvent extends Event
+class UserDeletedEvent extends Event
 {
-    public const NAME = 'user.created';
+    public const NAME = 'user.deleted';
 
     public function __construct(public User $user)
     {
