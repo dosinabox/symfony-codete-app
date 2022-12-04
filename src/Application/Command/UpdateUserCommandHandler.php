@@ -5,13 +5,16 @@ namespace App\Application\Command;
 use App\Entity\User;
 use App\Application\Query\GetUserByIDQuery;
 use App\Application\Query\GetUserByIDQueryHandler;
+use App\Event\UserUpdatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class UpdateUserCommandHandler
 {
     public function __construct(
         private readonly GetUserByIDQueryHandler $queryHandler,
-        private readonly EntityManagerInterface $entityManager)
+        private readonly EntityManagerInterface $entityManager,
+        private readonly EventDispatcherInterface $dispatcher)
     {
     }
 
@@ -23,6 +26,8 @@ class UpdateUserCommandHandler
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        $this->dispatcher->dispatch(new UserUpdatedEvent($user), UserUpdatedEvent::NAME);
 
         return $user;
     }
