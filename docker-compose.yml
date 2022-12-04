@@ -73,6 +73,17 @@ services:
     ports:
       - "5432:5432"
 
+###> mailhog ###
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    logging:
+      driver: "none"
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+###< mailhog ###
+
 volumes:
   php_socket:
   caddy_data:
