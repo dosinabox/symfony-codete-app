@@ -78,8 +78,6 @@
     },
     "require-dev": {
         "behat/behat": "^3.12",
-        "imbo/behat-api-extension": "^3.0",
-        "symfony/stopwatch": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "imbo/behat-api-extension": "^3.0"
     }
 }
