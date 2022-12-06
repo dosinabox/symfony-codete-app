@@ -9,5 +9,3 @@ default:
             apiClient:
                 base_uri: https://localhost
                 verify: false
-        FriendsOfBehat\SymfonyExtension:
-            bootstrap: 'config/behat/bootstrap.php'

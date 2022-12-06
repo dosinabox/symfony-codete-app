@@ -77,7 +77,6 @@
     },
     "require-dev": {
         "behat/behat": "^3.12",
-        "friends-of-behat/symfony-extension": "^2.0",
         "imbo/behat-api-extension": "^3.0"
     }
 }
