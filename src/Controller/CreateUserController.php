@@ -20,7 +20,9 @@ class CreateUserController extends AbstractController
         try {
             $user = $this->handler->handle(new CreateUserCommand(
                     $request->request->get('firstName'),
-                    $request->request->get('lastName'))
+                    $request->request->get('lastName'),
+                    $request->request->get('email'),
+                    $request->request->get('password'))
             );
         } catch (\AssertionError $error) {
             throw new BadRequestHttpException($error->getMessage());

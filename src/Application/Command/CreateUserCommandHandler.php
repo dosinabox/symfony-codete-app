@@ -6,20 +6,24 @@ use App\Entity\User;
 use App\Event\UserCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserCommandHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly EventDispatcherInterface $dispatcher
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly UserPasswordHasherInterface $hasher
     ) {
     }
 
     public function handle(CreateUserCommand $command): User
     {
-        $user = new User();
+        $user = new User($this->hasher);
         $user->setFirstName($command->firstName);
         $user->setLastName($command->lastName);
+        $user->setEmail($command->email);
+        $user->setPassword($command->password);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

@@ -22,6 +22,8 @@ class ListUsersController extends AbstractController
         $usersCollection = $collection->map(fn (User $user): array => [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
+            'email' => $user->getUserName(),
+            'roles' => $user->getRoles(),
         ]);
 
         return $this->json($usersCollection->toArray());
