@@ -1,0 +1,11 @@
+default:
+    suites:
+        default:
+            contexts:
+                - App\Tests\Behat\AppContext
+
+    extensions:
+        Imbo\BehatApiExtension:
+            apiClient:
+                base_uri: https://localhost
+                verify: false
