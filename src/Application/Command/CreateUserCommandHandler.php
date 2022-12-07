@@ -19,11 +19,11 @@ class CreateUserCommandHandler
 
     public function handle(CreateUserCommand $command): User
     {
-        $user = new User($this->hasher);
+        $user = new User();
         $user->setFirstName($command->firstName);
         $user->setLastName($command->lastName);
         $user->setEmail($command->email);
-        $user->setPassword($command->password);
+        $user->setPassword($this->hasher->hashPassword($user, $command->password));
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
