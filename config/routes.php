@@ -7,6 +7,7 @@ use App\Controller\CreateUserController;
 use App\Controller\ListUsersController;
 use App\Controller\UpdateUserController;
 use App\Controller\DeleteUserController;
+use App\Controller\ApiLoginController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {
@@ -28,5 +29,9 @@ return static function (RoutingConfigurator $routes) {
 
     $routes->add('addUser', '/users')
         ->controller(CreateUserController::class)
+        ->methods(['POST']);
+
+    $routes->add('api_login', '/api/login')
+        ->controller(ApiLoginController::class)
         ->methods(['POST']);
 };
