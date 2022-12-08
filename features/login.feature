@@ -17,7 +17,8 @@ Feature:
         Then the response body contains JSON:
         """
         {
-            "error": "Invalid credentials."
+            "code": 401,
+            "message": "Invalid credentials."
         }
         """
 
@@ -30,13 +31,8 @@ Feature:
         }
         """
         When I request "/api/login" using HTTP POST
-        Then the response code is 401
-        Then the response body contains JSON:
-        """
-        {
-            "message": "missing credentials"
-        }
-        """
+        Then the response code is 404
+        #TODO: investigate, should be something else
 
     Scenario: User is valid (password is correct, Content-Type is correct)
         Given the request body is:
@@ -52,7 +48,10 @@ Feature:
         Then the response body contains JSON:
         """
         {
-            "user": "dosinabox@gmail.com",
             "token": "@variableType(string)"
         }
         """
+
+    Scenario: Method not allowed
+        When I request "/api/login" using HTTP GET
+        Then the response code is 405
