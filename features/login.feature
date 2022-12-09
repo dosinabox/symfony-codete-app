@@ -12,12 +12,13 @@ Feature:
         }
         """
         Given the "Content-Type" request header contains "application/json"
-        When I request "/api/login" using HTTP POST
+        When I request "/api/login_check" using HTTP POST
         Then the response code is 401
         Then the response body contains JSON:
         """
         {
-            "error": "Invalid credentials."
+            "code": 401,
+            "message": "Invalid credentials."
         }
         """
 
@@ -29,14 +30,8 @@ Feature:
             "password": "123"
         }
         """
-        When I request "/api/login" using HTTP POST
-        Then the response code is 401
-        Then the response body contains JSON:
-        """
-        {
-            "message": "missing credentials"
-        }
-        """
+        When I request "/api/login_check" using HTTP POST
+        Then the response code is 404
 
     Scenario: User is valid (password is correct, Content-Type is correct)
         Given the request body is:
@@ -47,12 +42,15 @@ Feature:
         }
         """
         Given the "Content-Type" request header contains "application/json"
-        When I request "/api/login" using HTTP POST
+        When I request "/api/login_check" using HTTP POST
         Then the response code is 200
         Then the response body contains JSON:
         """
         {
-            "user": "dosinabox@gmail.com",
             "token": "@variableType(string)"
         }
         """
+
+    Scenario: Method not allowed
+        When I request "/api/login_check" using HTTP GET
+        Then the response code is 405

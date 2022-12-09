@@ -7,7 +7,6 @@ use App\Controller\CreateUserController;
 use App\Controller\ListUsersController;
 use App\Controller\UpdateUserController;
 use App\Controller\DeleteUserController;
-use App\Controller\ApiLoginController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {
@@ -31,7 +30,10 @@ return static function (RoutingConfigurator $routes) {
         ->controller(CreateUserController::class)
         ->methods(['POST']);
 
-    $routes->add('api_login', '/api/login')
-        ->controller(ApiLoginController::class)
+    $routes->add('api_login', '/api/login_check')
         ->methods(['POST']);
+
+    $routes->add('apiListUsers', '/api/users')
+        ->controller(ListUsersController::class)
+        ->methods(['GET']);
 };
