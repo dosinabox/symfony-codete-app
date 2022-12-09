@@ -12,7 +12,7 @@ Feature:
         }
         """
         Given the "Content-Type" request header contains "application/json"
-        When I request "/api/login" using HTTP POST
+        When I request "/api/login_check" using HTTP POST
         Then the response code is 401
         Then the response body contains JSON:
         """
@@ -30,9 +30,8 @@ Feature:
             "password": "123"
         }
         """
-        When I request "/api/login" using HTTP POST
+        When I request "/api/login_check" using HTTP POST
         Then the response code is 404
-        #TODO: investigate, should be something else
 
     Scenario: User is valid (password is correct, Content-Type is correct)
         Given the request body is:
@@ -43,7 +42,7 @@ Feature:
         }
         """
         Given the "Content-Type" request header contains "application/json"
-        When I request "/api/login" using HTTP POST
+        When I request "/api/login_check" using HTTP POST
         Then the response code is 200
         Then the response body contains JSON:
         """
@@ -53,5 +52,5 @@ Feature:
         """
 
     Scenario: Method not allowed
-        When I request "/api/login" using HTTP GET
+        When I request "/api/login_check" using HTTP GET
         Then the response code is 405

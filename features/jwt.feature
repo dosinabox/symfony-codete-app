@@ -38,4 +38,17 @@ Feature:
         }
         """
 
-        #TODO Scenario: JWT token is valid
+    Scenario: JWT token is valid
+        Given the "Content-Type" request header contains "application/json"
+        Given the request body is:
+        """
+        {
+            "username": "dosinabox@gmail.com",
+            "password": "123"
+        }
+        """
+        When I request "/api/login_check" using HTTP POST
+        Then I receive token
+        Given the next request contains received token
+        When I request "/api/users" using HTTP GET
+        Then the response code is 200

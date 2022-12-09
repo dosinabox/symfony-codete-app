@@ -30,7 +30,7 @@ return static function (RoutingConfigurator $routes) {
         ->controller(CreateUserController::class)
         ->methods(['POST']);
 
-    $routes->add('api_login', '/api/login')
+    $routes->add('api_login', '/api/login_check')
         ->methods(['POST']);
 
     $routes->add('apiListUsers', '/api/users')
