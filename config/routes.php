@@ -7,6 +7,11 @@ use App\Controller\CreateUserController;
 use App\Controller\ListUsersController;
 use App\Controller\UpdateUserController;
 use App\Controller\DeleteUserController;
+use App\Controller\CreateBlogPostController;
+use App\Controller\ListBlogPostController;
+use App\Controller\GetBlogPostController;
+use App\Controller\UpdateBlogPostController;
+use App\Controller\DeleteBlogPostController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {
@@ -36,4 +41,24 @@ return static function (RoutingConfigurator $routes) {
     $routes->add('apiListUsers', '/api/users')
         ->controller(ListUsersController::class)
         ->methods(['GET']);
+
+    $routes->add('addBlogPost', '/blogposts')
+        ->controller(CreateBlogPostController::class)
+        ->methods(['POST']);
+
+    $routes->add('listBlogPosts', '/blogposts')
+        ->controller(ListBlogPostController::class)
+        ->methods(['GET']);
+
+    $routes->add('getBlogPost', '/blogposts/{id}')
+        ->controller(GetBlogPostController::class)
+        ->methods(['GET']);
+
+    $routes->add('updateBlogPost', '/blogposts/{id}')
+        ->controller(UpdateBlogPostController::class)
+        ->methods(['POST']);
+
+    $routes->add('deleteBlogPost', '/blogposts/{id}')
+        ->controller(DeleteBlogPostController::class)
+        ->methods(['DELETE']);
 };

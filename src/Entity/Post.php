@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,7 +26,13 @@ class Post
     private User $author;
 
     #[ORM\ManyToMany(Tag::class)]
-    private Tag $tags;
+    private Collection $tags;
+
+    public function __construct()
+    {
+        //TODO investigate
+        $this->tags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +59,27 @@ class Post
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function removeTags(): self
+    {
+        $this->tags = new ArrayCollection();
 
         return $this;
     }
