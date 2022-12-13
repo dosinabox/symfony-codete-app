@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Application\Command\CreateBlogPostCommand;
 use App\Application\Command\CreateBlogPostCommandHandler;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class CreateBlogPostController extends AbstractController
 {
@@ -14,13 +16,13 @@ class CreateBlogPostController extends AbstractController
     {
     }
 
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request, #[CurrentUser] ?User $user): JsonResponse
     {
-        //TODO tags type is mixed
         $post = $this->handler->handle(new CreateBlogPostCommand(
             $request->request->get('title'),
             $request->request->get('content'),
-            $request->request->get('tags'))
+            $request->request->get('tags') ?? [],
+            $user)
         );
 
         return $this->json([

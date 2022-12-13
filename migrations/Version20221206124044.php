@@ -7,19 +7,15 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20221206124044 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'add email, roles and password fields for user';
     }
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE "user" ADD email VARCHAR(180) NOT NULL');
         $this->addSql('ALTER TABLE "user" ADD roles JSON NOT NULL');
         $this->addSql('ALTER TABLE "user" ADD password VARCHAR(255) NOT NULL');
@@ -28,7 +24,6 @@ final class Version20221206124044 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP INDEX UNIQ_8D93D649E7927C74');
         $this->addSql('ALTER TABLE "user" DROP email');

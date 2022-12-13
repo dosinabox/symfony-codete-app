@@ -17,12 +17,16 @@ class CreateBlogPostCommandHandler
         $post = new Post();
         $post->setTitle($command->title);
         $post->setContent($command->content);
+        $post->setAuthor($command->author);
 
         foreach ($command->tags as $tagID) {
             //TODO replace
             $repository = $this->entityManager->getRepository(Tag::class);
             $tag = $repository->find($tagID);
-            $post->addTag($tag);
+
+            if($tag) {
+                $post->addTag($tag);
+            }
         }
 
         $this->entityManager->persist($post);

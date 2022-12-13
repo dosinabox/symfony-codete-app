@@ -23,6 +23,7 @@ class ListBlogPostController extends AbstractController
             'id'        => $post->getId(),
             'title'     => $post->getTitle(),
             'content'   => $post->getContent(),
+            'author'    => $post->getAuthor()->getUserName(),
             'tags'      => $post->getTags()->map(fn (Tag $tag): string =>
                 $tag->getName())->toArray(),
         ]);
