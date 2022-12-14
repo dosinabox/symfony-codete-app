@@ -10,6 +10,7 @@ use Imbo\BehatApiExtension\Context\ApiContext;
 final class AppContext extends ApiContext implements Context
 {
     private string $token;
+
     /**
      * @Then print response
      */
@@ -17,6 +18,7 @@ final class AppContext extends ApiContext implements Context
     {
         echo($this->response->getBody());
     }
+
     /**
      * @Then I receive token
      */

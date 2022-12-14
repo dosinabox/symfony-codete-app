@@ -22,7 +22,6 @@ class ListBlogPostController extends AbstractController
         $postsCollection = $collection->map(fn (Post $post): array => [
             'id'        => $post->getId(),
             'title'     => $post->getTitle(),
-            'content'   => $post->getContent(),
             'author'    => $post->getAuthor()->getUserName(),
             'tags'      => $post->getTags()->map(fn (Tag $tag): string =>
                 $tag->getName())->toArray(),
