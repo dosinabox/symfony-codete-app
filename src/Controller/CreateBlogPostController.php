@@ -18,10 +18,11 @@ class CreateBlogPostController extends AbstractController
 
     public function __invoke(Request $request, #[CurrentUser] ?User $user): JsonResponse
     {
+        $requestContent = json_decode($request->getContent());
         $post = $this->handler->handle(new CreateBlogPostCommand(
-            $request->request->get('title'),
-            $request->request->get('content'),
-            $request->request->get('tags') ?? [],
+            $requestContent->title,
+            $requestContent->content,
+            (array)($requestContent->tags ?? []),
             $user)
         );
 

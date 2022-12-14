@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,20 +41,20 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Collection<Post> Returns collection of Post objects
+     */
+    public function findByTag(string $tagName): Collection
+    {
+        $array = $this->createQueryBuilder('posts')
+            ->leftJoin('posts.tags','tags')
+            ->andWhere('tags.name = :tagName')
+            ->setParameter('tagName', $tagName)
+            ->getQuery()
+            ->getResult();
+
+        return new ArrayCollection($array);
+    }
 
 //    public function findOneBySomeField($value): ?Post
 //    {

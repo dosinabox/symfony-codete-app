@@ -25,12 +25,11 @@ class Post
     #[ORM\ManyToOne(User::class)]
     private User $author;
 
-    #[ORM\ManyToMany(Tag::class)]
+    #[ORM\ManyToMany(Tag::class, inversedBy: 'posts')]
     private Collection $tags;
 
     public function __construct()
     {
-        //TODO investigate
         $this->tags = new ArrayCollection();
     }
 

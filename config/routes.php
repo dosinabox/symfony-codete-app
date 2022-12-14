@@ -9,6 +9,7 @@ use App\Controller\UpdateUserController;
 use App\Controller\DeleteUserController;
 use App\Controller\CreateBlogPostController;
 use App\Controller\ListBlogPostController;
+use App\Controller\ListBlogPostByTagController;
 use App\Controller\GetBlogPostController;
 use App\Controller\UpdateBlogPostController;
 use App\Controller\DeleteBlogPostController;
@@ -50,8 +51,14 @@ return static function (RoutingConfigurator $routes) {
         ->controller(ListBlogPostController::class)
         ->methods(['GET']);
 
+    $routes->add('listBlogPostsByTag', '/blogposts/{tagName}')
+        ->controller(ListBlogPostByTagController::class)
+        ->requirements(['tagName' => '\D+'])
+        ->methods(['GET']);
+
     $routes->add('getBlogPost', '/blogposts/{id}')
         ->controller(GetBlogPostController::class)
+        ->requirements(['id' => '\d+'])
         ->methods(['GET']);
 
     $routes->add('updateBlogPost', '/blogposts/{id}')
