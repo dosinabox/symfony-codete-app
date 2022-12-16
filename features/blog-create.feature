@@ -4,7 +4,7 @@ Feature:
     I want to send new post data with title, content and list of tags included
 
     #TODO: combine login action to one function
-    Scenario: Blog post added and deleted successfully
+    Scenario: Blog post added, updated and deleted successfully
         Given the "Content-Type" request header is "application/json"
         Given the request body is:
         """
@@ -20,9 +20,22 @@ Feature:
         """
         {
             "title": "Test post title",
-            "content": "Test post content"
+            "content": "Test post content",
+            "tags": [1,2]
         }
         """
         When I request "/blogposts" using HTTP POST
         Then the response code is 200
-        #TODO finish
+        Then I receive postID
+        Given the request body is:
+        """
+        {
+            "title": "Updated test post title",
+            "content": "Updated test post content",
+            "tags": [3,4]
+        }
+        """
+        Given I update post
+        Then the response code is 200
+        Given I delete post
+        Then the response code is 200

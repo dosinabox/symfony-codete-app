@@ -27,7 +27,8 @@ class CreateBlogPostController extends AbstractController
         );
 
         return $this->json([
-            'message' => 'Post ' . $post->getId() . ' created: ' . $post->getTitle()
+            'message'   => 'Post ' . $post->getId() . ' created: ' . $post->getTitle(),
+            'postID'    => $post->getId(),
         ]);
     }
 }

@@ -16,12 +16,12 @@ class UpdateBlogPostController extends AbstractController
 
     public function __invoke(int $id, Request $request): JsonResponse
     {
-        //TODO tags type is mixed
+        $requestContent = json_decode($request->getContent());
         $post = $this->handler->handle(new UpdateBlogPostCommand(
-            $request->request->get('title'),
-            $request->request->get('content'),
-            $request->request->get('tags'),
-            $id)
+                $requestContent->title,
+                $requestContent->content,
+                (array)($requestContent->tags ?? []),
+                $id)
         );
 
         return $this->json([
