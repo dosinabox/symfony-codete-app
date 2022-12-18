@@ -3,18 +3,8 @@ Feature:
     As an authenticated User
     I want to send new post data with title, content and list of tags included
 
-    #TODO: combine login action to one function
     Scenario: Blog post added, updated and deleted successfully
-        Given the "Content-Type" request header is "application/json"
-        Given the request body is:
-        """
-        {
-            "username": "dosinabox@gmail.com",
-            "password": "123"
-        }
-        """
-        When I request "/api/login_check" using HTTP POST
-        Then I receive token
+        Given I log in with correct credentials
         Given the next request contains received token
         Given the request body is:
         """
@@ -26,7 +16,7 @@ Feature:
         """
         When I request "/blogposts" using HTTP POST
         Then the response code is 200
-        Then I receive postID
+        Then I receive test postID
         Given the request body is:
         """
         {
@@ -35,7 +25,33 @@ Feature:
             "tags": [3,4]
         }
         """
-        Given I update post
+        Given I update test post
         Then the response code is 200
-        Given I delete post
+        Given I delete test post
         Then the response code is 200
+
+    Scenario: Blog post not added (missing required field)
+        Given I log in with correct credentials
+        Given the next request contains received token
+        Given the request body is:
+        """
+        {
+            "title": "Test post title"
+        }
+        """
+        When I request "/blogposts" using HTTP POST
+        Then the response code is 400
+
+    Scenario: Blog post not added (access denied)
+        Given I log in with incorrect credentials
+        Given the next request contains received token
+        Given the request body is:
+        """
+        {
+            "title": "Test post title",
+            "content": "Test post content",
+            "tags": [1,2]
+        }
+        """
+        When I request "/blogposts" using HTTP POST
+        Then the response code is 401

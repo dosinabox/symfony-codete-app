@@ -9,7 +9,7 @@ use Imbo\BehatApiExtension\Context\ApiContext;
 
 final class AppContext extends ApiContext implements Context
 {
-    private string $token;
+    private string $token = 'token';
 
     private int $postID;
 
@@ -22,11 +22,30 @@ final class AppContext extends ApiContext implements Context
     }
 
     /**
-     * @Then I receive token
+     * @Given I log in with correct credentials
      */
-    public function iReceiveToken()
+    public function iLoginWithCorrectCredentials()
     {
+        $this->setRequestHeader('Content-Type', 'application/json');
+        $this->setRequestBody('{
+            "username": "dosinabox@gmail.com",
+            "password": "123"
+        }');
+        $this->requestPath('/api/login_check', 'POST');
         $this->token = json_decode((string)$this->response->getBody())->token;
+    }
+
+    /**
+     * @Given I log in with incorrect credentials
+     */
+    public function iLoginWithIncorrectCredentials()
+    {
+        $this->setRequestHeader('Content-Type', 'application/json');
+        $this->setRequestBody('{
+            "username": "dosinabox@gmail.com",
+            "password": "incorrect password"
+        }');
+        $this->requestPath('/api/login_check', 'POST');
     }
 
     /**
@@ -38,26 +57,26 @@ final class AppContext extends ApiContext implements Context
     }
 
     /**
-     * @Then I receive postID
+     * @Then I receive test postID
      */
-    public function iReceivePostID()
+    public function iReceiveTestPostID()
     {
         $this->postID = json_decode((string)$this->response->getBody())->postID;
     }
 
     /**
-     * @Given I update post
+     * @Given I update test post
      */
-    public function iUpdatePost()
+    public function iUpdateTestPost()
     {
-        return $this->requestPath('/blogposts/' . $this->postID, 'POST');
+        $this->requestPath('/blogposts/' . $this->postID, 'POST');
     }
 
     /**
-     * @Given I delete post
+     * @Given I delete test post
      */
-    public function iDeletePost()
+    public function iDeleteTestPost()
     {
-        return $this->requestPath('/blogposts/' . $this->postID, 'DELETE');
+        $this->requestPath('/blogposts/' . $this->postID, 'DELETE');
     }
 }
