@@ -25,9 +25,9 @@ Feature:
             "tags": [3,4]
         }
         """
-        Given I update test post
+        When I update test post
         Then the response code is 200
-        Given I delete test post
+        When I delete test post
         Then the response code is 200
 
     Scenario: Blog post not added (missing required field)

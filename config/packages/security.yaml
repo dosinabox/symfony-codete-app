@@ -44,7 +44,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: ROLE_USER }
-        - { path: ^/blogposts, roles: ROLE_USER, methods: [POST,DELETE] }
+        - { path: ^/api/blogposts, roles: ROLE_USER, methods: [POST,DELETE] }
 
 when@test:
     security:
