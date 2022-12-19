@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\BlogPosts;
 
-use App\Application\Query\ListBlogPostsQueryHandler;
 use App\Entity\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

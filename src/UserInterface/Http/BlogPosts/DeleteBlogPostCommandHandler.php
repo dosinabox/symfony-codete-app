@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Application\Command;
+namespace App\UserInterface\Http\BlogPosts;
 
-use App\Application\Query\GetBlogPostByIDQuery;
-use App\Application\Query\GetBlogPostByIDQueryHandler;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DeleteBlogPostCommandHandler

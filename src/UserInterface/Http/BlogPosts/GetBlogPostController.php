@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\BlogPosts;
 
-use App\Application\Query\GetBlogPostByIDQuery;
-use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

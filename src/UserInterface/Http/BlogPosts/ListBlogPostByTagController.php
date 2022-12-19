@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\BlogPosts;
 
 use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;

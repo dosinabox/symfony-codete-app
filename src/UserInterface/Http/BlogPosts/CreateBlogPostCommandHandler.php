@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Command;
+namespace App\UserInterface\Http\BlogPosts;
 
 use App\Entity\Post;
 use App\Entity\Tag;

@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\BlogPosts;
 
-use App\Application\Command\UpdateBlogPostCommand;
-use App\Application\Command\UpdateBlogPostCommandHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
