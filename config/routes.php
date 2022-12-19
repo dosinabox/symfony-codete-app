@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-use App\Controller\GetUserController;
-use App\Controller\CreateUserController;
-use App\Controller\ListUsersController;
-use App\Controller\UpdateUserController;
-use App\Controller\DeleteUserController;
-use App\Controller\CreateBlogPostController;
-use App\Controller\ListBlogPostController;
-use App\Controller\ListBlogPostByTagController;
-use App\Controller\GetBlogPostController;
-use App\Controller\UpdateBlogPostController;
-use App\Controller\DeleteBlogPostController;
+use App\UserInterface\Http\BlogPosts\CreateBlogPostController;
+use App\UserInterface\Http\BlogPosts\DeleteBlogPostController;
+use App\UserInterface\Http\BlogPosts\GetBlogPostController;
+use App\UserInterface\Http\BlogPosts\ListBlogPostByTagController;
+use App\UserInterface\Http\BlogPosts\ListBlogPostController;
+use App\UserInterface\Http\BlogPosts\UpdateBlogPostController;
+use App\UserInterface\Http\Users\CreateUserController;
+use App\UserInterface\Http\Users\DeleteUserController;
+use App\UserInterface\Http\Users\GetUserController;
+use App\UserInterface\Http\Users\ListUsersController;
+use App\UserInterface\Http\Users\UpdateUserController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {

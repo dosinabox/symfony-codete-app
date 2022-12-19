@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\BlogPosts;
 
 use App\Application\Query\ListBlogPostsQueryHandler;
 use App\Entity\Post;
+use App\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\Tag;
 
 class ListBlogPostController extends AbstractController
 {

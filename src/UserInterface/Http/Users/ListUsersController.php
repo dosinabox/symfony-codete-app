@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\Users;
 
 use App\Application\Query\ListUsersQuery;
-use App\Entity\User;
 use App\Application\Query\ListUsersQueryHandler;
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
