@@ -2,6 +2,8 @@
 
 namespace App\UserInterface\Http\BlogPosts;
 
+use App\Application\Command\CreateBlogPostCommand;
+use App\Application\Command\CreateBlogPostCommandHandler;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

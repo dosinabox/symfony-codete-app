@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UserInterface\Http\BlogPosts;
+namespace App\Application\Query;
 
 use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;

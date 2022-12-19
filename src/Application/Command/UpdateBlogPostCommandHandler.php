@@ -1,7 +1,9 @@
 <?php
 
-namespace App\UserInterface\Http\BlogPosts;
+namespace App\Application\Command;
 
+use App\Application\Query\GetBlogPostByIDQuery;
+use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;

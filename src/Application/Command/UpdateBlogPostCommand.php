@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UserInterface\Http\BlogPosts;
+namespace App\Application\Command;
 
 class UpdateBlogPostCommand
 {

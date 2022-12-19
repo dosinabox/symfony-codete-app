@@ -1,11 +1,10 @@
 <?php
 
-namespace App\UserInterface\Http\BlogPosts;
+namespace App\Application\Command;
 
-class GetBlogPostByIDQuery
+class DeleteBlogPostCommand
 {
     public function __construct(public int $id)
     {
-
     }
 }
