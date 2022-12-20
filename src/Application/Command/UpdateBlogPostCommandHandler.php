@@ -23,10 +23,10 @@ class UpdateBlogPostCommandHandler
         $post->setContent($command->content);
         $post->removeTags();
 
-        foreach ($command->tags as $tagID) {
-            //TODO replace
+        foreach ($command->tags as $tagName) {
             $repository = $this->entityManager->getRepository(Tag::class);
-            $tag = $repository->find($tagID);
+            $tag = $repository->findOrCreate($tagName);
+
             $post->addTag($tag);
         }
 

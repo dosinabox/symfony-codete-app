@@ -39,6 +39,19 @@ class TagRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOrCreate(string $tagName): Tag
+    {
+        $tag = $this->findOneBy(['name' => $tagName]);
+
+        if (!$tag) {
+            $tag = new Tag();
+            $tag->setName($tagName);
+            $this->save($tag,true);
+        }
+
+        return $tag;
+    }
+
 //    /**
 //     * @return Tag[] Returns an array of Tag objects
 //     */

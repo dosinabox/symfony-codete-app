@@ -3,6 +3,7 @@
 namespace App\Application\Command;
 
 use App\Entity\User;
+use Webmozart\Assert\Assert;
 
 class CreateBlogPostCommand
 {
@@ -10,5 +11,6 @@ class CreateBlogPostCommand
     {
         assert(!is_null($this->title));
         assert(!is_null($this->content));
+        Assert::allAlpha($tags);
     }
 }

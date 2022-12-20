@@ -19,18 +19,9 @@ class CreateBlogPostCommandHandler
         $post->setContent($command->content);
         $post->setAuthor($command->author);
 
-        foreach ($command->tags as $tagID) {
-            //TODO rework
-            //TODO findOrCreate?
+        foreach ($command->tags as $tagName) {
             $repository = $this->entityManager->getRepository(Tag::class);
-            $tag = $repository->find($tagID);
-
-            if(!$tag) {
-                $tag = new Tag();
-                $tag->setId($tagID);
-                $tag->setName('tag' . $tagID);
-                $repository->save($tag,true);
-            }
+            $tag = $repository->findOrCreate($tagName);
 
             $post->addTag($tag);
         }

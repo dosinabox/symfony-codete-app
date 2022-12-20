@@ -26,7 +26,8 @@
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/runtime": "5.4.*",
         "symfony/security-bundle": "5.4.*",
-        "symfony/yaml": "5.4.*"
+        "symfony/yaml": "5.4.*",
+        "webmozart/assert": "^1.11"
     },
     "config": {
         "allow-plugins": {
