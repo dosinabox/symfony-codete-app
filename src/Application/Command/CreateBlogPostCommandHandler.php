@@ -29,8 +29,7 @@ class CreateBlogPostCommandHandler
                 $tag = new Tag();
                 $tag->setId($tagID);
                 $tag->setName('tag' . $tagID);
-                $this->entityManager->persist($tag);
-                $this->entityManager->flush();
+                $repository->save($tag,true);
             }
 
             $post->addTag($tag);
