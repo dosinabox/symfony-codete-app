@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'NONE')]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -34,6 +34,13 @@ class Tag
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function setName(string $name): self
