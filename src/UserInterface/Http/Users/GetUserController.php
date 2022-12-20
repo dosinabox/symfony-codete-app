@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\Users;
 
 use App\Application\Query\GetUserByIDQuery;
 use App\Application\Query\GetUserByIDQueryHandler;

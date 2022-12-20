@@ -2,11 +2,17 @@
 
 declare(strict_types=1);
 
-use App\Controller\GetUserController;
-use App\Controller\CreateUserController;
-use App\Controller\ListUsersController;
-use App\Controller\UpdateUserController;
-use App\Controller\DeleteUserController;
+use App\UserInterface\Http\BlogPosts\CreateBlogPostController;
+use App\UserInterface\Http\BlogPosts\DeleteBlogPostController;
+use App\UserInterface\Http\BlogPosts\GetBlogPostController;
+use App\UserInterface\Http\BlogPosts\ListBlogPostByTagController;
+use App\UserInterface\Http\BlogPosts\ListBlogPostController;
+use App\UserInterface\Http\BlogPosts\UpdateBlogPostController;
+use App\UserInterface\Http\Users\CreateUserController;
+use App\UserInterface\Http\Users\DeleteUserController;
+use App\UserInterface\Http\Users\GetUserController;
+use App\UserInterface\Http\Users\ListUsersController;
+use App\UserInterface\Http\Users\UpdateUserController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {
@@ -36,4 +42,30 @@ return static function (RoutingConfigurator $routes) {
     $routes->add('apiListUsers', '/api/users')
         ->controller(ListUsersController::class)
         ->methods(['GET']);
+
+    $routes->add('addBlogPost', '/blogposts')
+        ->controller(CreateBlogPostController::class)
+        ->methods(['POST']);
+
+    $routes->add('listBlogPosts', '/blogposts')
+        ->controller(ListBlogPostController::class)
+        ->methods(['GET']);
+
+    $routes->add('listBlogPostsByTag', '/blogposts/{tagName}')
+        ->controller(ListBlogPostByTagController::class)
+        ->requirements(['tagName' => '\D+'])
+        ->methods(['GET']);
+
+    $routes->add('getBlogPost', '/blogposts/{id}')
+        ->controller(GetBlogPostController::class)
+        ->requirements(['id' => '\d+'])
+        ->methods(['GET']);
+
+    $routes->add('updateBlogPost', '/blogposts/{id}')
+        ->controller(UpdateBlogPostController::class)
+        ->methods(['POST']);
+
+    $routes->add('deleteBlogPost', '/blogposts/{id}')
+        ->controller(DeleteBlogPostController::class)
+        ->methods(['DELETE']);
 };

@@ -3,16 +3,8 @@ Feature:
     As user
     I want to receive token
 
-    Scenario: User is not valid (password is incorrect, Content-Type is correct)
-        Given the request body is:
-        """
-        {
-            "username": "dosinabox@gmail.com",
-            "password": "incorrect password"
-        }
-        """
-        Given the "Content-Type" request header contains "application/json"
-        When I request "/api/login_check" using HTTP POST
+    Scenario: User is not valid (password is incorrect)
+        Given I log in with incorrect credentials
         Then the response code is 401
         Then the response body contains JSON:
         """
@@ -22,27 +14,8 @@ Feature:
         }
         """
 
-    Scenario: Content-Type is incorrect
-        Given the request body is:
-        """
-        {
-            "username": "dosinabox@gmail.com",
-            "password": "123"
-        }
-        """
-        When I request "/api/login_check" using HTTP POST
-        Then the response code is 404
-
-    Scenario: User is valid (password is correct, Content-Type is correct)
-        Given the request body is:
-        """
-        {
-            "username": "dosinabox@gmail.com",
-            "password": "123"
-        }
-        """
-        Given the "Content-Type" request header contains "application/json"
-        When I request "/api/login_check" using HTTP POST
+    Scenario: User is valid (password is correct)
+        Given I log in with correct credentials
         Then the response code is 200
         Then the response body contains JSON:
         """

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\UserInterface\Http\Users;
 
 use App\Application\Command\UpdateUserCommand;
 use App\Application\Command\UpdateUserCommandHandler;
