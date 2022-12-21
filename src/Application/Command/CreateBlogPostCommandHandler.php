@@ -19,14 +19,11 @@ class CreateBlogPostCommandHandler
         $post->setContent($command->content);
         $post->setAuthor($command->author);
 
-        foreach ($command->tags as $tagID) {
-            //TODO replace
+        foreach ($command->tags as $tagName) {
             $repository = $this->entityManager->getRepository(Tag::class);
-            $tag = $repository->find($tagID);
+            $tag = $repository->findOrCreate($tagName);
 
-            if($tag) {
-                $post->addTag($tag);
-            }
+            $post->addTag($tag);
         }
 
         $this->entityManager->persist($post);

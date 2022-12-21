@@ -22,13 +22,17 @@ class CreateUserConsoleCommand extends Command
     {
         $this->addArgument('firstName', InputArgument::REQUIRED, 'First name of the user.');
         $this->addArgument('lastName', InputArgument::REQUIRED, 'Last name of the user.');
+        $this->addArgument('email', InputArgument::REQUIRED, 'Email of the user.');
+        $this->addArgument('password', InputArgument::REQUIRED, 'Password.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $user = $this->handler->handle(new CreateUserCommand(
             $input->getArgument('firstName'),
-            $input->getArgument('lastName')
+            $input->getArgument('lastName'),
+            $input->getArgument('email'),
+            $input->getArgument('password')
             ));
         $output->writeln('User ' . $user->getId() . ' created: ' . $user->getFirstName() . ' ' . $user->getLastName());
 

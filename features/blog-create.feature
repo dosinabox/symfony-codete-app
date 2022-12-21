@@ -11,7 +11,7 @@ Feature:
         {
             "title": "Test post title",
             "content": "Test post content",
-            "tags": [1,2]
+            "tags": ["cats","dogs"]
         }
         """
         When I request "/blogposts" using HTTP POST
@@ -22,7 +22,7 @@ Feature:
         {
             "title": "Updated test post title",
             "content": "Updated test post content",
-            "tags": [3,4]
+            "tags": ["lizards"]
         }
         """
         When I update test post
@@ -50,7 +50,7 @@ Feature:
         {
             "title": "Test post title",
             "content": "Test post content",
-            "tags": [1,2]
+            "tags": ["cats","dogs"]
         }
         """
         When I request "/blogposts" using HTTP POST
