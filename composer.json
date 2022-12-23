@@ -80,6 +80,7 @@
     },
     "require-dev": {
         "behat/behat": "^3.12",
-        "imbo/behat-api-extension": "^3.0"
+        "imbo/behat-api-extension": "^3.0",
+        "symfony/phpunit-bridge": "^6.2"
     }
 }
