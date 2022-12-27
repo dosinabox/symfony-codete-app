@@ -17,7 +17,7 @@ class GetBlogPostByIDQueryHandler
         $repository = $this->entityManager->getRepository(Post::class);
         $post = $repository->find($query->id);
 
-        if($post instanceof Post)
+        if ($post instanceof Post)
         {
             return $post;
         }

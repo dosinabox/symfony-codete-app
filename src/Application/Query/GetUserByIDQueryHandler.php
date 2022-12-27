@@ -10,7 +10,6 @@ class GetUserByIDQueryHandler
 {
     public function __construct(private readonly EntityManagerInterface $em)
     {
-
     }
 
     public function handle(GetUserByIDQuery $query): User
@@ -18,7 +17,7 @@ class GetUserByIDQueryHandler
         $repository = $this->em->getRepository(User::class);
         $user = $repository->find($query->id);
 
-        if($user instanceof User)
+        if ($user instanceof User)
         {
             return $user;
         }

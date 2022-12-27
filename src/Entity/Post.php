@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @Serializer\ExclusionPolicy('all')
+ */
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
@@ -16,9 +19,19 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type('string')
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $title;
 
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type('string')
+     * @var string|null
+     */
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content;
 
