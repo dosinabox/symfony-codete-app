@@ -28,6 +28,7 @@ class CreateBlogPostController extends AbstractController
             throw new BadRequestHttpException($error->getMessage());
         }
 
+        //TODO replace with UID and don't use envelope
         $handledStamp = $envelope->last(HandledStamp::class);
         $post = $handledStamp->getResult();
 

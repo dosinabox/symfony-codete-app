@@ -8,8 +8,8 @@ class UpdateBlogPostCommand
 {
     public function __construct(public string $title, public string $content, public array $tags, public int $id)
     {
-        assert(!is_null($this->title));
-        assert(!is_null($this->content));
+        assert(!is_null($this->title), 'Title is missing!');
+        assert(!is_null($this->content), 'Content is missing!');
         Assert::allAlpha($tags);
     }
 }
