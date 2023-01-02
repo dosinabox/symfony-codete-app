@@ -7,8 +7,9 @@ use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class UpdateBlogPostCommandHandler
+class UpdateBlogPostCommandHandler implements MessageHandlerInterface
 {
     public function __construct(
         private readonly GetBlogPostByIDQueryHandler $queryHandler,
@@ -16,7 +17,7 @@ class UpdateBlogPostCommandHandler
     {
     }
 
-    public function handle(UpdateBlogPostCommand $command): Post
+    public function __invoke(UpdateBlogPostCommand $command): Post
     {
         $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->id));
         $post->setTitle($command->title);
