@@ -7,10 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
+    #[ORM\Column(type: 'uuid', unique: true, nullable: true)]
+    #[ORM\GeneratedValue(strategy: 'UUID')]
+    private ?Uuid $uuid;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -28,9 +33,15 @@ class Post
     #[ORM\ManyToMany(Tag::class, inversedBy: 'posts')]
     private Collection $tags;
 
-    public function __construct()
+    public function __construct(Uuid $uuid)
     {
         $this->tags = new ArrayCollection();
+        $this->uuid = $uuid;
+    }
+
+    public function getUuid(): ?Uuid
+    {
+        return $this->uuid;
     }
 
     public function getId(): ?int
