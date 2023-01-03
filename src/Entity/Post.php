@@ -12,10 +12,6 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
-    #[ORM\Column(type: 'uuid', unique: true, nullable: true)]
-    #[ORM\GeneratedValue(strategy: 'UUID')]
-    private ?Uuid $uuid;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -33,15 +29,11 @@ class Post
     #[ORM\ManyToMany(Tag::class, inversedBy: 'posts')]
     private Collection $tags;
 
-    public function __construct(Uuid $uuid)
+    public function __construct(
+        #[ORM\Column(type: 'uuid', unique: true, nullable: true)]
+        public readonly Uuid $uuid)
     {
         $this->tags = new ArrayCollection();
-        $this->uuid = $uuid;
-    }
-
-    public function getUuid(): ?Uuid
-    {
-        return $this->uuid;
     }
 
     public function getId(): ?int
