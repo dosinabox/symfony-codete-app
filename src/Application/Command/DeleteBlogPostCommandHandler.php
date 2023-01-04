@@ -17,7 +17,7 @@ class DeleteBlogPostCommandHandler implements MessageHandlerInterface
 
     public function __invoke(DeleteBlogPostCommand $command): void
     {
-        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->id));
+        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->uuid));
 
         $this->entityManager->remove($post);
         $this->entityManager->flush();
