@@ -8,6 +8,5 @@ class GetBlogPostByIDQuery
 {
     public function __construct(public readonly Uuid $uuid)
     {
-
     }
 }
