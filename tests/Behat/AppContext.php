@@ -11,7 +11,7 @@ final class AppContext extends ApiContext implements Context
 {
     private string $token = 'token';
 
-    private int $postID;
+    private string $postID;
 
     /**
      * @Then print response
