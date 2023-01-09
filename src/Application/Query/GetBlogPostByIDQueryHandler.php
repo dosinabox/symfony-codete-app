@@ -15,13 +15,13 @@ class GetBlogPostByIDQueryHandler
     public function handle(GetBlogPostByIDQuery $query): Post
     {
         $repository = $this->entityManager->getRepository(Post::class);
-        $post = $repository->find($query->id);
+        $post = $repository->findOneByUuid($query->uuid);
 
         if($post instanceof Post)
         {
             return $post;
         }
 
-        throw new NotFoundHttpException('Blog post ' . $query->id . ' not found!');
+        throw new NotFoundHttpException('Blog post ' . $query->uuid . ' not found!');
     }
 }

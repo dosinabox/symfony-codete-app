@@ -58,7 +58,7 @@ return static function (RoutingConfigurator $routes) {
 
     $routes->add('getBlogPost', '/blogposts/{id}')
         ->controller(GetBlogPostController::class)
-        ->requirements(['id' => '\d+'])
+        ->requirements(['id' => '^[a-f0-9\-]{36}$']) //TODO get by numeric ID too
         ->methods(['GET']);
 
     $routes->add('updateBlogPost', '/blogposts/{id}')
