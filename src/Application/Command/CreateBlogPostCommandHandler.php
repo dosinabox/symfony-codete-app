@@ -15,7 +15,7 @@ class CreateBlogPostCommandHandler implements MessageHandlerInterface
 
     public function __invoke(CreateBlogPostCommand $command): Post
     {
-        $post = new Post();
+        $post = new Post($command->uuid);
         $post->setTitle($command->title);
         $post->setContent($command->content);
         $post->setAuthor($command->author);

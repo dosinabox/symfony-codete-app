@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -54,6 +55,11 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
 
         return new ArrayCollection($array);
+    }
+
+    public function findOneByUuid(Uuid $uuid): ?Post
+    {
+        return $this->findOneBy(['uuid' => $uuid]);
     }
 
 //    public function findOneBySomeField($value): ?Post

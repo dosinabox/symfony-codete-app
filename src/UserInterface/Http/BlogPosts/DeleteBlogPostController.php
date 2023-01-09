@@ -6,15 +6,18 @@ use App\Application\Command\DeleteBlogPostCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Uid\Uuid;
 
 class DeleteBlogPostController extends AbstractController
 {
-    public function __invoke(int $id, MessageBusInterface $commandBus): JsonResponse
+    public function __invoke(string $id, MessageBusInterface $commandBus): JsonResponse
     {
-        $commandBus->dispatch(new DeleteBlogPostCommand($id));
+        //TODO use Value Resolvers
+        $uuid = Uuid::fromString($id);
+        $commandBus->dispatch(new DeleteBlogPostCommand($uuid));
 
         return $this->json([
-            'message' => 'Post ' . $id . ' deleted!',
+            'message' => 'Post ' . $uuid . ' deleted!',
         ]);
     }
 }
