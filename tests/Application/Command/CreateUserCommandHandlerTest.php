@@ -52,24 +52,11 @@ class CreateUserCommandHandlerTest extends TestCase
 
         //assert
         $this->assertEquals($user, $handledUser);
+        $this->assertEquals('firstName', $handledUser->getFirstName());
+        $this->assertEquals('lastName', $handledUser->getLastName());
+        $this->assertEquals('email@test.com', $handledUser->getUserName());
+        $this->assertEquals('email@test.com', $handledUser->getUserIdentifier());
+        $this->assertEquals('hashedPassword', $handledUser->getPassword());
         $this->assertContains('ROLE_USER', $handledUser->getRoles());
     }
-
-    //TODO move to CreateUserCommand test
-    /*public function testExceptionHandle()
-    {
-        //assign
-        $user = new User();
-        $user->setFirstName('1');
-        $user->setLastName('2');
-        $user->setEmail('email@test.com');
-        $user->setPassword('hashedPassword');
-
-        $this->expectException(\AssertionError::class);
-        //act
-
-        $handledUser = $this->commandHandler->handle(new CreateUserCommand(
-            'firstName', 'lastName', 'email@test.com', 'password'
-        ));
-    }*/
 }
