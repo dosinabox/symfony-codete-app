@@ -15,7 +15,13 @@ class GetBlogPostByIDQueryHandler
     public function handle(GetBlogPostByIDQuery $query): Post
     {
         $repository = $this->entityManager->getRepository(Post::class);
-        $post = $repository->findOneByUuid($query->uuid);
+
+        if(is_int($query->uuid))
+        {
+            $post = $repository->find($query->uuid);
+        } else {
+            $post = $repository->findOneByUuid($query->uuid);
+        }
 
         if($post instanceof Post)
         {

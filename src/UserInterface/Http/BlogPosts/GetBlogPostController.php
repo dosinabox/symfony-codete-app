@@ -17,8 +17,13 @@ class GetBlogPostController extends AbstractController
 
     public function __invoke(string $id): JsonResponse
     {
-        //TODO use Value Resolvers
-        $uuid = Uuid::fromString($id);
+        if(is_numeric($id))
+        {
+            $uuid = (int)$id;
+        } else {
+            $uuid = Uuid::fromString($id);
+        }
+
         $post = $this->handler->handle(new GetBlogPostByIDQuery($uuid));
 
         return $this->json([
