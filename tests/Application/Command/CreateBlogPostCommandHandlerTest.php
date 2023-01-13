@@ -7,6 +7,7 @@ use App\Application\Command\CreateBlogPostCommandHandler;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Repository\TagRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -34,27 +35,31 @@ class CreateBlogPostCommandHandlerTest extends TestCase
         $user->setPassword('hashedPassword');
 
         $uuid = Uuid::v4();
+        $repository = $this->createMock(TagRepository::class);
 
         //TODO test tags
-        //$tag = new Tag();
-        //$tag->setName('cats');
+        $tag = new Tag();
+        $tag->setName('cats');
 
         $post = new Post($uuid);
         $post->setTitle('title');
         $post->setContent('content');
         $post->setAuthor($user);
-        //$post->addTag($tag);
+        $post->addTag($tag);
 
         $this->entityManager->expects($this->once())->method('persist')->with($post);
         $this->entityManager->expects($this->once())->method('flush');
 
-        $command = new CreateBlogPostCommand(
-            'title', 'content', [], $user, $uuid
-        );
-
         /*$command = new CreateBlogPostCommand(
-            'title', 'content', [$tag->getName()], $user, $uuid
+            'title', 'content', [], $user, $uuid
         );*/
+
+        $this->entityManager->expects($this->once())->method('getRepository')->with(Tag::class)->willReturn($repository);
+        $repository->expects($this->once())->method('findOrCreate')->with($tag->getName())->willReturn($tag);
+
+        $command = new CreateBlogPostCommand(
+            'title', 'content', [$tag->getName()], $user, $uuid
+        );
 
         $handler = $this->commandHandler;
         $handledPost = $handler($command);

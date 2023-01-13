@@ -26,11 +26,18 @@ class GetBlogPostByIDQueryHandlerTest extends TestCase
     public function testHandle()
     {
         $uuid = Uuid::fromString('fc3b0519-6fc9-4461-9b63-44b7e05b9678');
-        //TODO investigate findOneByUuid
-        //$this->entityManager->expects($this->once())->method('getRepository')->with(Post::class)->willReturn($this->createMock(PostRepository::class));
+        $repository = $this->createMock(PostRepository::class);
 
-        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($uuid));
-        $this->assertEquals('Test post title', $post->getTitle());
-        $this->assertEquals('Test post content', $post->getContent());
+        $post = new Post($uuid);
+        $post->setTitle('Test post title');
+        $post->setContent('Test post content');
+
+        $this->entityManager->expects($this->once())->method('getRepository')->with(Post::class)->willReturn($repository);
+        $repository->expects($this->once())->method('findOneByUuid')->with($uuid)->willReturn($post);
+
+        $handledPost = $this->queryHandler->handle(new GetBlogPostByIDQuery($uuid));
+        $this->assertSame($handledPost, $post);
+        $this->assertEquals('Test post title', $handledPost->getTitle());
+        $this->assertEquals('Test post content', $handledPost->getContent());
     }
 }
