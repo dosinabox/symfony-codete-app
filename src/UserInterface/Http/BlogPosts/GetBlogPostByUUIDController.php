@@ -2,8 +2,8 @@
 
 namespace App\UserInterface\Http\BlogPosts;
 
-use App\Application\Query\GetBlogPostByUUIDQuery;
-use App\Application\Query\GetBlogPostByUUIDQueryHandler;
+use App\Application\Query\GetBlogPostByIDQuery;
+use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,13 +11,13 @@ use Symfony\Component\Uid\Uuid;
 
 class GetBlogPostByUUIDController extends AbstractController
 {
-    public function __construct(private readonly GetBlogPostByUUIDQueryHandler $handler)
+    public function __construct(private readonly GetBlogPostByIDQueryHandler $handler)
     {
     }
 
     public function __invoke(Uuid $uuid): JsonResponse
     {
-        $post = $this->handler->handle(new GetBlogPostByUUIDQuery($uuid));
+        $post = $this->handler->handle(new GetBlogPostByIDQuery($uuid));
 
         return $this->json([
             'id'        => $post->getId(),
