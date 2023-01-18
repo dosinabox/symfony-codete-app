@@ -7,24 +7,16 @@ use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Uid\Uuid;
 
-class GetBlogPostController extends AbstractController
+class GetBlogPostByIDController extends AbstractController
 {
     public function __construct(private readonly GetBlogPostByIDQueryHandler $handler)
     {
     }
 
-    public function __invoke(string $id): JsonResponse
+    public function __invoke(int $id): JsonResponse
     {
-        if(is_numeric($id))
-        {
-            $uuid = (int)$id;
-        } else {
-            $uuid = Uuid::fromString($id);
-        }
-
-        $post = $this->handler->handle(new GetBlogPostByIDQuery($uuid));
+        $post = $this->handler->handle(new GetBlogPostByIDQuery($id));
 
         return $this->json([
             'id'        => $post->getId(),

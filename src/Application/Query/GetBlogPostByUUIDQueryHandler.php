@@ -6,22 +6,22 @@ use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class GetBlogPostByIDQueryHandler
+class GetBlogPostByUUIDQueryHandler
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
-    public function handle(GetBlogPostByIDQuery $query): Post
+    public function handle(GetBlogPostByUUIDQuery $query): Post
     {
         $repository = $this->entityManager->getRepository(Post::class);
-        $post = $repository->find($query->id);
+        $post = $repository->findOneByUuid($query->uuid);
 
         if($post instanceof Post)
         {
             return $post;
         }
 
-        throw new NotFoundHttpException('Blog post ' . $query->id . ' not found!');
+        throw new NotFoundHttpException('Blog post ' . $query->uuid . ' not found!');
     }
 }

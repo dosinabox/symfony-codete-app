@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 use App\UserInterface\Http\BlogPosts\CreateBlogPostController;
 use App\UserInterface\Http\BlogPosts\DeleteBlogPostController;
-use App\UserInterface\Http\BlogPosts\GetBlogPostController;
+use App\UserInterface\Http\BlogPosts\GetBlogPostByIDController;
+use App\UserInterface\Http\BlogPosts\GetBlogPostByUUIDController;
 use App\UserInterface\Http\BlogPosts\ListBlogPostByTagController;
 use App\UserInterface\Http\BlogPosts\ListBlogPostController;
 use App\UserInterface\Http\BlogPosts\UpdateBlogPostController;
@@ -56,9 +57,14 @@ return static function (RoutingConfigurator $routes) {
         ->requirements(['tagName' => '\D+'])
         ->methods(['GET']);
 
-    $routes->add('getBlogPost', '/blogposts/{id}')
-        ->controller(GetBlogPostController::class)
-        ->requirements(['id' => '^[a-f0-9\-]{36}$|\d+'])
+    $routes->add('getBlogPostByUUID', '/blogposts/{id}')
+        ->controller(GetBlogPostByUUIDController::class)
+        ->requirements(['id' => '^[a-f0-9\-]{36}$'])
+        ->methods(['GET']);
+
+    $routes->add('getBlogPostByID', '/blogposts/{id}')
+        ->controller(GetBlogPostByIDController::class)
+        ->requirements(['id' => '\d+'])
         ->methods(['GET']);
 
     $routes->add('updateBlogPost', '/blogposts/{id}')
