@@ -19,7 +19,7 @@ class GetBlogPostController extends AbstractController
     {
         //TODO use Value Resolvers
         $uuid = Uuid::fromString($id);
-        $post = $this->handler->handle(new GetBlogPostByIDQuery($uuid));
+        $post = $this->handler->__invoke(new GetBlogPostByIDQuery($uuid));
 
         return $this->json([
             'id'        => $post->getId(),

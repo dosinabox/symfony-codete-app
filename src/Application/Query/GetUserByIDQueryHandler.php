@@ -6,14 +6,13 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class GetUserByIDQueryHandler
+class GetUserByIDQueryHandler implements QueryHandlerInterface
 {
     public function __construct(private readonly EntityManagerInterface $em)
     {
-
     }
 
-    public function handle(GetUserByIDQuery $query): User
+    public function __invoke(GetUserByIDQuery $query)
     {
         $repository = $this->em->getRepository(User::class);
         $user = $repository->find($query->id);

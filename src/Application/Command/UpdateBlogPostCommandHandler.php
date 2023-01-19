@@ -7,10 +7,9 @@ use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class UpdateBlogPostCommandHandler implements MessageHandlerInterface
+class UpdateBlogPostCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly GetBlogPostByIDQueryHandler $queryHandler,
@@ -20,7 +19,7 @@ class UpdateBlogPostCommandHandler implements MessageHandlerInterface
 
     public function __invoke(UpdateBlogPostCommand $command): Post
     {
-        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->uuid));
+        $post = $this->queryHandler->__invoke(new GetBlogPostByIDQuery($command->uuid));
 
         if ($post->getAuthor()->getId() !== $command->editorID) {
             throw new AccessDeniedException();

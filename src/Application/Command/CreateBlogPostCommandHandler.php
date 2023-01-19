@@ -5,9 +5,8 @@ namespace App\Application\Command;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class CreateBlogPostCommandHandler implements MessageHandlerInterface
+class CreateBlogPostCommandHandler implements CommandHandlerInterface
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {

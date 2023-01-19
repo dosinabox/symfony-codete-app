@@ -9,7 +9,7 @@ use App\Event\UserUpdatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class UpdateUserCommandHandler
+class UpdateUserCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly GetUserByIDQueryHandler $queryHandler,
@@ -18,9 +18,9 @@ class UpdateUserCommandHandler
     {
     }
 
-    public function handle(UpdateUserCommand $command): User
+    public function __invoke(UpdateUserCommand $command): User
     {
-        $user = $this->queryHandler->handle(new GetUserByIDQuery($command->id));
+        $user = $this->queryHandler->__invoke(new GetUserByIDQuery($command->id));
         $user->setFirstName($command->firstName);
         $user->setLastName($command->lastName);
 

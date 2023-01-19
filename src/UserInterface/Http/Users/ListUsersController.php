@@ -17,7 +17,7 @@ class ListUsersController extends AbstractController
 
     public function __invoke(): JsonResponse
     {
-        $users = $this->handler->handle(new ListUsersQuery());
+        $users = $this->handler->__invoke(new ListUsersQuery());
         $collection = new ArrayCollection($users);
         $usersCollection = $collection->map(fn (User $user): array => [
             'firstName' => $user->getFirstName(),

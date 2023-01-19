@@ -8,7 +8,7 @@ use App\Event\UserDeletedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class DeleteUserCommandHandler
+class DeleteUserCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly GetUserByIDQueryHandler $queryHandler,
@@ -17,9 +17,9 @@ class DeleteUserCommandHandler
     {
     }
 
-    public function handle(DeleteUserCommand $command): void
+    public function __invoke(DeleteUserCommand $command)
     {
-        $user = $this->queryHandler->handle(new GetUserByIDQuery($command->id));
+        $user = $this->queryHandler->__invoke(new GetUserByIDQuery($command->id));
 
         $this->entityManager->remove($user);
         $this->entityManager->flush();

@@ -18,7 +18,7 @@ class UpdateUserController extends AbstractController
     public function __invoke(int $id, Request $request): JsonResponse
     {
         try {
-            $user = $this->updateHandler->handle(
+            $user = $this->updateHandler->__invoke(
                 new UpdateUserCommand(
                     $request->request->get('firstName'),
                     $request->request->get('lastName'),
