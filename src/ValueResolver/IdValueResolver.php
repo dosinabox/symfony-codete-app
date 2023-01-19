@@ -12,15 +12,25 @@ class IdValueResolver implements ArgumentValueResolverInterface
 {
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return $argument->getType() === Uuid::class && $request->attributes->has('id');
+        $types = explode('|', $argument->getType());
+        foreach ($types as $type) {
+            if($request->attributes->has('id')) {
+                return $type === Uuid::class || $type === 'int';
+            }
+        }
+
+        return false;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        try {
+        $id = $request->attributes->get('id');
+        if(Uuid::isValid($id)) {
             yield Uuid::fromString($request->attributes->get('id'));
-        } catch (\InvalidArgumentException $exception) {
-            throw new BadRequestHttpException($exception->getMessage());
+        } elseif(is_numeric($id)) {
+            yield (int)$id;
+        } else {
+            throw new BadRequestHttpException('Argument type is invalid!');
         }
     }
 }
