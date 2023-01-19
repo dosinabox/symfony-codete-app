@@ -12,7 +12,7 @@ use Symfony\Component\Uid\Uuid;
 
 class UpdateBlogPostController extends AbstractController
 {
-    public function __invoke(string $id, Request $request, MessageBusInterface $commandBus): JsonResponse
+    public function __invoke(Uuid $id, Request $request, MessageBusInterface $commandBus): JsonResponse
     {
         $requestContent = json_decode($request->getContent());
 
