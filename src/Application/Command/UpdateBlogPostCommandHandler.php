@@ -21,10 +21,6 @@ class UpdateBlogPostCommandHandler implements CommandHandlerInterface
     {
         $post = $this->queryHandler->__invoke(new GetBlogPostByIDQuery($command->uuid));
 
-        if ($post->getAuthor()->getId() !== $command->editorID) {
-            throw new AccessDeniedException();
-        }
-
         $post->setTitle($command->title);
         $post->setContent($command->content);
         $post->removeTags();

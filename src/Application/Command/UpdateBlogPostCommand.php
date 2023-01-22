@@ -11,8 +11,7 @@ class UpdateBlogPostCommand
         public ?string $title,
         public ?string $content,
         public array $tags,
-        public Uuid $uuid,
-        public int $editorID)
+        public Uuid $uuid)
     {
         assert(!is_null($this->title), 'Title is missing!');
         assert(!is_null($this->content), 'Content is missing!');

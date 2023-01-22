@@ -32,8 +32,7 @@ class UpdateBlogPostController extends AbstractController
                 $requestContent->title,
                 $requestContent->content,
                 (array)($requestContent->tags ?? []),
-                $uuid,
-                $currentUser->getId())
+                $uuid)
             );
         } catch (\AssertionError $error) {
             throw new BadRequestHttpException($error->getMessage());
