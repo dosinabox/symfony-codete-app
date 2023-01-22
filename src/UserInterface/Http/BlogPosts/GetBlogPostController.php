@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Uid\Uuid;
 
-class GetBlogPostByIDController extends AbstractController
+class GetBlogPostController extends AbstractController
 {
     public function __construct(private readonly GetBlogPostByIDQueryHandler $handler)
     {
