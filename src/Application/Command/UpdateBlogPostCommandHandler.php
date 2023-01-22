@@ -7,7 +7,6 @@ use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UpdateBlogPostCommandHandler implements CommandHandlerInterface
 {
