@@ -20,7 +20,6 @@ class UpdateBlogPostCommandHandler implements CommandHandlerInterface
     public function __invoke(UpdateBlogPostCommand $command): Post
     {
         $post = $this->queryHandler->__invoke(new GetBlogPostByIDQuery($command->uuid));
-
         $post->setTitle($command->title);
         $post->setContent($command->content);
         $post->removeTags();

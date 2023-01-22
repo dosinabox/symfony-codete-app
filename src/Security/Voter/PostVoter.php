@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class PostVoter extends Voter
 {
     public const EDIT = 'POST_EDIT';
-    //public const VIEW = 'POST_VIEW';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
