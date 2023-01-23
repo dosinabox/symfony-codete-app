@@ -5,8 +5,9 @@ namespace App\Application\Command;
 use App\Application\Query\GetBlogPostByIDQuery;
 use App\Application\Query\GetBlogPostByIDQueryHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class DeleteBlogPostCommandHandler
+class DeleteBlogPostCommandHandler implements MessageHandlerInterface
 {
     public function __construct(
         private readonly GetBlogPostByIDQueryHandler $queryHandler,
@@ -14,9 +15,9 @@ class DeleteBlogPostCommandHandler
     {
     }
 
-    public function handle(DeleteBlogPostCommand $command): void
+    public function __invoke(DeleteBlogPostCommand $command): void
     {
-        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->id));
+        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->uuid));
 
         $this->entityManager->remove($post);
         $this->entityManager->flush();

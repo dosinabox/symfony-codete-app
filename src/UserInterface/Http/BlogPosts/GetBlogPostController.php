@@ -7,6 +7,7 @@ use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\UserInterface\Http\Mapper\BlogPost\BlogPostResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\Uuid;
 
 class GetBlogPostController extends AbstractController
 {
@@ -16,7 +17,7 @@ class GetBlogPostController extends AbstractController
     {
     }
 
-    public function __invoke(int $id): Response
+    public function __invoke(int|Uuid $id): Response
     {
         $post = $this->handler->handle(new GetBlogPostByIDQuery($id));
 

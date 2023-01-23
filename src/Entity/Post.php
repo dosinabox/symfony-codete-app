@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -28,7 +29,9 @@ class Post
     #[ORM\ManyToMany(Tag::class, inversedBy: 'posts')]
     private Collection $tags;
 
-    public function __construct()
+    public function __construct(
+        #[ORM\Column(type: 'uuid', unique: true, nullable: true)]
+        public readonly Uuid $uuid)
     {
         $this->tags = new ArrayCollection();
     }

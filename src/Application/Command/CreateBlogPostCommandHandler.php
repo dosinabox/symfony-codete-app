@@ -5,16 +5,17 @@ namespace App\Application\Command;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class CreateBlogPostCommandHandler
+class CreateBlogPostCommandHandler implements MessageHandlerInterface
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
-    public function handle(CreateBlogPostCommand $command): Post
+    public function __invoke(CreateBlogPostCommand $command): Post
     {
-        $post = new Post();
+        $post = new Post($command->uuid);
         $post->setTitle($command->title);
         $post->setContent($command->content);
         $post->setAuthor($command->author);

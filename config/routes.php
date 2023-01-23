@@ -56,9 +56,9 @@ return static function (RoutingConfigurator $routes) {
         ->requirements(['tagName' => '\D+'])
         ->methods(['GET']);
 
-    $routes->add('getBlogPost', '/blogposts/{id}')
+    $routes->add('getBlogPostByID', '/blogposts/{id}')
         ->controller(GetBlogPostController::class)
-        ->requirements(['id' => '\d+'])
+        ->requirements(['id' => '^[a-f0-9\-]{36}$|\d+'])
         ->methods(['GET']);
 
     $routes->add('updateBlogPost', '/blogposts/{id}')
