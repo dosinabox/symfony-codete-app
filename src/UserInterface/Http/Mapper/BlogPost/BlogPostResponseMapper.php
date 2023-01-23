@@ -17,6 +17,7 @@ class BlogPostResponseMapper
     {
         return [
             'id'        => $post->getId(),
+            'uuid'      => $post->uuid,
             'title'     => $post->getTitle(),
             'content'   => $post->getContent(),
             'author'    => $post->getAuthor()->getUserName(),
