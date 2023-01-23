@@ -6,7 +6,7 @@ use App\Application\Query\GetBlogPostByIDQuery;
 use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\UserInterface\Http\Mapper\BlogPost\BlogPostResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Uid\Uuid;
 
 class GetBlogPostController extends AbstractController
@@ -17,10 +17,10 @@ class GetBlogPostController extends AbstractController
     {
     }
 
-    public function __invoke(int|Uuid $id): Response
+    public function __invoke(int|Uuid $id): JsonResponse
     {
         $post = $this->handler->handle(new GetBlogPostByIDQuery($id));
 
-        return $this->mapper->serialize($post);
+        return $this->mapper->serialize($this->mapper->map($post));
     }
 }

@@ -4,7 +4,7 @@ namespace App\UserInterface\Http\Mapper\BlogPost;
 
 use App\Entity\Post;
 use App\Entity\Tag;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class BlogPostResponseMapper
@@ -26,8 +26,9 @@ class BlogPostResponseMapper
         ];
     }
 
-    public function serialize(Post $post): Response
+    public function serialize($posts): JsonResponse
     {
-        return new Response($this->serializer->serialize($this->map($post), 'json'));
+        return new JsonResponse($this->serializer->serialize($posts, 'json'));
+        //return new JsonResponse($posts);
     }
 }
