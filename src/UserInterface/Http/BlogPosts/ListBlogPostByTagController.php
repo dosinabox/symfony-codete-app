@@ -22,6 +22,6 @@ class ListBlogPostByTagController extends AbstractController
         $collection = $postsRepository->findByTag($tagName);
         $postsCollection = $collection->map(fn (Post $post): array => $this->mapper->map($post));
 
-        return $this->mapper->serialize($postsCollection->toArray());
+        return $this->json($postsCollection->toArray());
     }
 }

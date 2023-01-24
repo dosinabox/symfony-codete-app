@@ -23,6 +23,6 @@ class ListBlogPostController extends AbstractController
         $collection = new ArrayCollection($posts);
         $postsCollection = $collection->map(fn (Post $post): array => $this->mapper->map($post));
 
-        return $this->mapper->serialize($postsCollection->toArray());
+        return $this->json($postsCollection->toArray());
     }
 }

@@ -21,6 +21,6 @@ class GetBlogPostController extends AbstractController
     {
         $post = $this->handler->handle(new GetBlogPostByIDQuery($id));
 
-        return $this->mapper->serialize($this->mapper->map($post));
+        return $this->json($this->mapper->map($post));
     }
 }
