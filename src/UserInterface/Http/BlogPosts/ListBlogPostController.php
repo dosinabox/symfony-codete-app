@@ -4,14 +4,16 @@ namespace App\UserInterface\Http\BlogPosts;
 
 use App\Application\Query\ListBlogPostsQueryHandler;
 use App\Entity\Post;
-use App\Entity\Tag;
+use App\UserInterface\Http\Mapper\BlogPost\BlogPostResponseMapper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ListBlogPostController extends AbstractController
 {
-    public function __construct(private readonly ListBlogPostsQueryHandler $handler)
+    public function __construct(
+        private readonly ListBlogPostsQueryHandler $handler,
+        private readonly BlogPostResponseMapper $mapper)
     {
     }
 
@@ -19,13 +21,7 @@ class ListBlogPostController extends AbstractController
     {
         $posts = $this->handler->handle();
         $collection = new ArrayCollection($posts);
-        $postsCollection = $collection->map(fn (Post $post): array => [
-            'id'        => $post->getId(),
-            'title'     => $post->getTitle(),
-            'author'    => $post->getAuthor()->getUserName(),
-            'tags'      => $post->getTags()->map(fn (Tag $tag): string =>
-                $tag->getName())->toArray(),
-        ]);
+        $postsCollection = $collection->map(fn (Post $post): array => $this->mapper->map($post));
 
         return $this->json($postsCollection->toArray());
     }
