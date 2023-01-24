@@ -19,7 +19,7 @@ class GetBlogPostController extends AbstractController
 
     public function __invoke(int|Uuid $id): JsonResponse
     {
-        $post = $this->handler->handle(new GetBlogPostByIDQuery($id));
+        $post = $this->handler->__invoke(new GetBlogPostByIDQuery($id));
 
         return $this->json($this->mapper->map($post));
     }

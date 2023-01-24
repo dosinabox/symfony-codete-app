@@ -15,7 +15,7 @@ class GetUserController extends AbstractController
 
     public function __invoke(int $id): JsonResponse
     {
-        $user = $this->handler->handle(new GetUserByIDQuery($id));
+        $user = $this->handler->__invoke(new GetUserByIDQuery($id));
 
         return $this->json([
             'message' => 'User ' . $user->getId() . ': ' . $user->getFirstName() . ' ' . $user->getLastName(),

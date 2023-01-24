@@ -7,13 +7,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Uid\Uuid;
 
-class GetBlogPostByIDQueryHandler
+class GetBlogPostByIDQueryHandler implements QueryHandlerInterface
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
-    public function handle(GetBlogPostByIDQuery $query): Post
+    public function __invoke(GetBlogPostByIDQuery $query)
     {
         $repository = $this->entityManager->getRepository(Post::class);
 

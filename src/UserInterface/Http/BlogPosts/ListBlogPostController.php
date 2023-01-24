@@ -2,6 +2,7 @@
 
 namespace App\UserInterface\Http\BlogPosts;
 
+use App\Application\Query\ListBlogPostsQuery;
 use App\Application\Query\ListBlogPostsQueryHandler;
 use App\Entity\Post;
 use App\UserInterface\Http\Mapper\BlogPost\BlogPostResponseMapper;
@@ -19,7 +20,7 @@ class ListBlogPostController extends AbstractController
 
     public function __invoke(): JsonResponse
     {
-        $posts = $this->handler->handle();
+        $posts = $this->handler->__invoke(new ListBlogPostsQuery());
         $collection = new ArrayCollection($posts);
         $postsCollection = $collection->map(fn (Post $post): array => $this->mapper->map($post));
 

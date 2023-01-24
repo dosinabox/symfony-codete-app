@@ -18,7 +18,7 @@ class CreateUserController extends AbstractController
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $user = $this->handler->handle(new CreateUserCommand(
+            $user = $this->handler->__invoke(new CreateUserCommand(
                     $request->request->get('firstName'),
                     $request->request->get('lastName'),
                     $request->request->get('email'),
