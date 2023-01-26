@@ -22,7 +22,7 @@ class CreateUserCommandTest extends TestCase
     public function testAssertionError()
     {
         $this->expectException(\AssertionError::class);
-        $this->commandHandler->handle(new CreateUserCommand(
+        $this->commandHandler->__invoke(new CreateUserCommand(
             '1', '2', 'email@test.com', 'password'
         ));
     }

@@ -37,7 +37,6 @@ class CreateBlogPostCommandHandlerTest extends TestCase
         $uuid = Uuid::v4();
         $repository = $this->createMock(TagRepository::class);
 
-        //TODO test tags
         $tag = new Tag();
         $tag->setName('cats');
 
@@ -49,11 +48,6 @@ class CreateBlogPostCommandHandlerTest extends TestCase
 
         $this->entityManager->expects($this->once())->method('persist')->with($post);
         $this->entityManager->expects($this->once())->method('flush');
-
-        /*$command = new CreateBlogPostCommand(
-            'title', 'content', [], $user, $uuid
-        );*/
-
         $this->entityManager->expects($this->once())->method('getRepository')->with(Tag::class)->willReturn($repository);
         $repository->expects($this->once())->method('findOrCreate')->with($tag->getName())->willReturn($tag);
 

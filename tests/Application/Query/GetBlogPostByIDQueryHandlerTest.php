@@ -35,7 +35,7 @@ class GetBlogPostByIDQueryHandlerTest extends TestCase
         $this->entityManager->expects($this->once())->method('getRepository')->with(Post::class)->willReturn($repository);
         $repository->expects($this->once())->method('findOneByUuid')->with($uuid)->willReturn($post);
 
-        $handledPost = $this->queryHandler->handle(new GetBlogPostByIDQuery($uuid));
+        $handledPost = $this->queryHandler->__invoke(new GetBlogPostByIDQuery($uuid));
         $this->assertSame($handledPost, $post);
         $this->assertEquals('Test post title', $handledPost->getTitle());
         $this->assertEquals('Test post content', $handledPost->getContent());

@@ -46,7 +46,7 @@ class CreateUserCommandHandlerTest extends TestCase
         $this->entityManager->expects($this->once())->method('flush');
         $this->dispatcher->expects($this->once())->method('dispatch')->with(new UserCreatedEvent($user));
 
-        $handledUser = $this->commandHandler->handle(new CreateUserCommand(
+        $handledUser = $this->commandHandler->__invoke(new CreateUserCommand(
             'firstName', 'lastName', 'email@test.com', 'password'
         ));
 
