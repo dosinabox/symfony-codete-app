@@ -22,11 +22,23 @@ final class AppContext extends ApiContext implements Context
     }
 
     /**
+     * @Given admin log in with correct credentials
+     */
+    public function adminLoginWithCorrectCredentials()
+    {
+        $this->setRequestBody('{
+            "username": "batman@gotham.com",
+            "password": "admin"
+        }');
+        $this->requestPath('/api/login_check', 'POST');
+        $this->token = json_decode((string)$this->response->getBody())->token;
+    }
+
+    /**
      * @Given I log in with correct credentials
      */
     public function iLoginWithCorrectCredentials()
     {
-        $this->setRequestHeader('Content-Type', 'application/json');
         $this->setRequestBody('{
             "username": "dosinabox@gmail.com",
             "password": "123"
@@ -40,7 +52,6 @@ final class AppContext extends ApiContext implements Context
      */
     public function iLoginWithIncorrectCredentials()
     {
-        $this->setRequestHeader('Content-Type', 'application/json');
         $this->setRequestBody('{
             "username": "dosinabox@gmail.com",
             "password": "incorrect password"

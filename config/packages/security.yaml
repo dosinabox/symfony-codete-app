@@ -31,6 +31,11 @@ security:
             stateless: true
             jwt: ~
 
+        users:
+            pattern: ^/users
+            stateless: true
+            jwt: ~
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -44,7 +49,8 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: ROLE_USER }
-        - { path: ^/api/blogposts, roles: ROLE_USER, methods: [POST,DELETE] }
+        - { path: ^/users, roles: ROLE_ADMIN, methods: [POST,DELETE] }
+        - { path: ^/blogposts, roles: ROLE_USER, methods: [POST,DELETE] }
 
 when@test:
     security:

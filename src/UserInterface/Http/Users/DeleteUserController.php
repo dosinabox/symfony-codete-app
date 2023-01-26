@@ -15,7 +15,7 @@ class DeleteUserController extends AbstractController
 
     public function __invoke(int $id): JsonResponse
     {
-        $this->deleteHandler->handle(new DeleteUserCommand($id));
+        $this->deleteHandler->__invoke(new DeleteUserCommand($id));
 
         return $this->json([
             'message' => 'User ' . $id . ' deleted!',

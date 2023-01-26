@@ -28,7 +28,7 @@ class CreateUserConsoleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $user = $this->handler->handle(new CreateUserCommand(
+        $user = $this->handler->__invoke(new CreateUserCommand(
             $input->getArgument('firstName'),
             $input->getArgument('lastName'),
             $input->getArgument('email'),

@@ -3,23 +3,26 @@
 namespace App\Application\Command;
 
 use App\Application\Query\GetBlogPostByIDQuery;
-use App\Application\Query\GetBlogPostByIDQueryHandler;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
-class UpdateBlogPostCommandHandler implements MessageHandlerInterface
+class UpdateBlogPostCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly GetBlogPostByIDQueryHandler $queryHandler,
+        private readonly MessageBusInterface $queryBus,
         private readonly EntityManagerInterface $entityManager)
     {
     }
 
     public function __invoke(UpdateBlogPostCommand $command): Post
     {
-        $post = $this->queryHandler->handle(new GetBlogPostByIDQuery($command->uuid));
+        $post = $this->queryBus->dispatch(new GetBlogPostByIDQuery($command->uuid))
+            ->last(HandledStamp::class)
+            ->getResult();
+
         $post->setTitle($command->title);
         $post->setContent($command->content);
         $post->removeTags();

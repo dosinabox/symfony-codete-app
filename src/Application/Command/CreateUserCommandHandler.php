@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class CreateUserCommandHandler
+class CreateUserCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -17,7 +17,7 @@ class CreateUserCommandHandler
     ) {
     }
 
-    public function handle(CreateUserCommand $command): User
+    public function __invoke(CreateUserCommand $command): User
     {
         $user = new User();
         $user->setFirstName($command->firstName);
