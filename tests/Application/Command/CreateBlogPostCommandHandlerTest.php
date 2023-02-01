@@ -28,6 +28,7 @@ class CreateBlogPostCommandHandlerTest extends TestCase
 
     public function test__invoke()
     {
+        //arrange
         $user = new User();
         $user->setFirstName('firstName');
         $user->setLastName('lastName');
@@ -56,8 +57,11 @@ class CreateBlogPostCommandHandlerTest extends TestCase
         );
 
         $handler = $this->commandHandler;
+
+        //act
         $handledPost = $handler($command);
 
+        //assert
         $this->assertEquals($post, $handledPost);
         $this->assertEquals('title', $handledPost->getTitle());
         $this->assertEquals('content', $handledPost->getContent());

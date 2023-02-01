@@ -33,19 +33,18 @@ class CreateUserCommandHandlerTest extends TestCase
 
     public function testHandle()
     {
-        //assign
+        //arrange
         $user = new User();
         $user->setFirstName('firstName');
         $user->setLastName('lastName');
         $user->setEmail('email@test.com');
         $user->setPassword('hashedPassword');
-
-        //act
         $this->hasher->expects($this->once())->method('hashPassword')->willReturn('hashedPassword');
         $this->entityManager->expects($this->once())->method('persist')->with($user);
         $this->entityManager->expects($this->once())->method('flush');
         $this->dispatcher->expects($this->once())->method('dispatch')->with(new UserCreatedEvent($user));
 
+        //act
         $handledUser = $this->commandHandler->__invoke(new CreateUserCommand(
             'firstName', 'lastName', 'email@test.com', 'password'
         ));
